@@ -26,16 +26,22 @@ class AppConfiguration @Autowired constructor(val userRepo: UserRepository,
     @Bean
     fun runner() = CommandLineRunner {
 
-        val car = carRepository.save(Car(brand = "Yaris"))
-        val yaris = listOf(car)
+        val jajang = userRepo.save(User(username = "Jajang"))
+        carRepository.save(listOf(
+                Car(brand = "Yaris", user = jajang),
+                Car(brand = "Brio", user = jajang)
+        ))
 
         userRepo.save(listOf(
-                User(username = "Jajang", car = yaris),
-                User(username = "Ujang", car = yaris),
-                User(username = "Maicih", car = yaris),
-                User(username = "Asep", car = yaris),
-                User(username = "Gumasep", car = yaris)
+                jajang,
+                User(username = "Ujang"),
+                User(username = "Maicih"),
+                User(username = "Asep"),
+                User(username = "Gumasep")
         ))
+
+        val result = userRepo.findOne(jajang.userId)
+        println("Jajang have a cars: ${result.cars}")
     }
 }
 

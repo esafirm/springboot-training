@@ -7,6 +7,6 @@ data class User(
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         val userId: Long? = null,
         val username: String? = null,
-        @OneToMany(mappedBy = "car_id")
-        val car: List<Car>? = null
+        @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+        val cars: List<Car>? = null
 )
